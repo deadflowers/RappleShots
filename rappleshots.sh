@@ -16,13 +16,3 @@ while [ "$#" -gt 0 ]; do
 		convert "$picture" \( +clone -background black -shadow 80x20+0+15 \) +swap -background transparent -layers merge +repage "${filename}_rappleshot.png"
         shift
 done
-
-#!/bin/bash
-while [ $# -gt 0 ]; do
-        picture=$1
-		filename=$(basename "$1")
-		extension="${filename##*.}"
-		filename="${filename%.*}"
-		convert "$picture" \( +clone -background black -shadow 80x20+0+15 \) +swap -background transparent -layers merge +repage "${filename}_rappleshot${i}.png"
-        shift
-done

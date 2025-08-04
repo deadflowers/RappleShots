@@ -1,28 +1,64 @@
-#[RappleShots by Ray](https://github.com/deadflowers/RappleShots/)
-========================
+# RappleShots by Ray
 
-###[RappleShots](http://github.com/deadflowers/RappleShots/) are Ray's Apple IOS-ish Screenshots in Linux with Image Magick
+**RappleShots** is a lightweight ImageMagick-based tool for Linux that generates iOS-style framed screenshots with drop shadows—ideal for presentations, documentation, or app previews.
 
-![Sample RappleShot &trade;](http://webmx.me/assets/test/rappleshots/thrones_rappleshot.png)
+---
 
-My personal system of making *screenshots that don't suck* is designed for use with nautilus to give context menu click method of highlight and swift creation as in (1 click) processing, on multiple image files of various extensions into cool Apple IOS Style Screen shots. 
+## Overview
 
-[PREVIEW LINK](http://statspring.com/?https://raw.githubusercontent.com/rayantony/RappleShots/master/demo.html)
+- Converts screenshots (from `gnome-screenshot`, `Flameshot`, etc.) into polished, iOS-like styled images.
+- Supports bulk batch processing via Nautilus or Nemo context menu integration.
+- Designed for speed: handles dozens of images before graphical tools like GIMP even open.
 
-Turn on drop shadow and effects the, checkboxes basically for your gnome-screenshots utlity then reprocess with this tool. Same as in my other forthcoming repo of ImageMagick automation. I f'n love imagemagick, prcessing on the command line or 1 click shell "apps"? Seriously cool. I can handle 200 files before gimp even opens, and as usual do it on a chromebook with 12.04 ray-buntu (like chrubuntu)
+---
 
-If you use Nautilus/Unity/Gnome then drop this in $HOME/.gnome2/nautilus scripts/... without the extension and 
-permission it root but executable. Good to go
+## Version 2.04 Highlights
 
-Have Fun!
-- by ray anthony 
-@rayantony
+- Enhanced CLI options: support for customizing output suffix, shadow intensity, and batch processing.
+- Improved instructions for integration with Nautilus, Nemo, and Unity.
+- Sample images and demo page updated to use new CloudFront domain: `d3uaz5bp3928j6.cloudfront.net`
 
- [twitter.com](//platform.twitter.com/widgets/follow_button.html?screen_name=rayanthonyrcc)
- 
- copyright 2015 [ray anthony](//rayanthony.io)&copy; all applicable rights reserved all liabilities waived
- 
- [oneworldlicense.com](//oneworldlicense.com) means open source, free, and made with ♡ at Github
+---
 
+## Installation
 
+1. Copy `rappleshots.sh` into Nautilus or Nemo scripts folder:
 
+~/.local/share/nautilus/scripts/
+
+bash
+
+2. Make it executable:
+```bash
+chmod +x rappleshots.sh
+```
+    To enable: right-click any image → Scripts → RappleShots.
+
+    Works with GNOME, Unity, Nemo, and XFCE.
+
+Usage
+
+```./rappleshots.sh [options] file1.png file2.jpg ...```
+
+Options:
+
+    -s SUFFIX – Custom output suffix (default: _rappleshot)
+
+    -b LEVEL – Shadow blur level (default: 80x20+0+15)
+
+    -h, --help – Show usage instructions
+
+Example
+
+```./rappleshots.sh -s ios -b "100x30+0+20" screenshot1.png screenshot2.jpg```
+
+Generates: screenshot1_ios.png, screenshot2_ios.png
+Sample Images & Demo
+
+Visit the live demo to view examples.
+Sample assets hosted at d3uaz5bp3928j6.cloudfront.net/assets/test/rappleshots/.
+License & Author
+
+Created by
+Ray Anthony
+. Licensed under the One‑World License: free, open‑source, and built with ❤️.

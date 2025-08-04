@@ -1,28 +1,38 @@
-#!/bin/bash
-# sample imagemagick lines to reformat screen captures to have ios like framing and drop shadow
-# a rappleshot component
-# designed for use with nautilus to give context menu click method of highlight and swiftly (1 click) processing 
-#   multiple image files of various extensions into cool Apple IOS Style Screen shots. Turn on drop shadow and effects 
-#   the checkboxes basically for your gnome-screenshots utlity then reprocess with this tool. same as in my other repo
-#   if you use nautlus/Unity/Gnome then drop this in $HOME/.gnome2/nautilus scripts/... without the extension and 
-#   permission it root but executable
-# by ray anthony 
-# 5/1/2015
-while [ "$#" -gt 0 ]; do
-        picture="$1"
-		filename=$(basename "$1")
-		extension="${filename##*.}"
-		filename="${filename%.*}"
-		convert "$picture" \( +clone -background black -shadow 80x20+0+15 \) +swap -background transparent -layers merge +repage "${filename}_rappleshot.png"
-        shift
+#!/usr/bin/env bash
+# RappleShots v2.04 — generate iOS‑style framed screenshots with drop shadow
+# Usage: rappleshots.sh [-s SUFFIX] [-b BLUR] file1 [file2 …]
+
+SUFFIX="_rappleshot"
+BLUR="80x20+0+15"
+
+help() {
+  cat <<EOF
+RappleShots v2.04
+Usage: $0 [-s SUFFIX] [-b BLUR] image1 [image2 ...]
+  -s SUFFIX    output filename suffix (default: $SUFFIX)
+  -b BLUR      shadow blur (default: $BLUR)
+  -h, --help   show this help
+EOF
+  exit 0
+}
+
+while (( "$#" )); do
+  case "$1" in
+    -s) SUFFIX="$2"; shift 2 ;;
+    -b) BLUR="$2"; shift 2 ;;
+    -h|--help) help ;;
+    *) FILES+=("$1"); shift ;;
+  esac
 done
 
-#!/bin/bash
-while [ $# -gt 0 ]; do
-        picture=$1
-		filename=$(basename "$1")
-		extension="${filename##*.}"
-		filename="${filename%.*}"
-		convert "$picture" \( +clone -background black -shadow 80x20+0+15 \) +swap -background transparent -layers merge +repage "${filename}_rappleshot${i}.png"
-        shift
+if [ ${#FILES[@]} -eq 0 ]; then
+  help
+fi
+
+for picture in "${FILES[@]}"; do
+  fname=$(basename "$picture")
+  name="${fname%.*}"
+  convert "$picture" \( +clone -background black -shadow "${BLUR}" \) \
+    +swap -background transparent -layers merge +repage \
+    "${name}${SUFFIX}.png"
 done
